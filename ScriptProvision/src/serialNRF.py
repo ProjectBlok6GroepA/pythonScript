@@ -10,10 +10,10 @@ class Opcodes:
     ECHO = 0x02
 
 
-class Device:
-    uuid = None
-    GAT = None
-    provisioned = None
+class UnprovisionedDevice():
+    def __init__(self, newUuid):
+        uuid = newUuid
+        provisioned = false
 
 
 def setup_serial_connection():
@@ -56,7 +56,7 @@ def write_serial(value):
 def process_unprov_device():
     time.sleep(1)
     s = ser.read(27)
-    Device.uuid = s[2:18:]  # byte 2 up to 18 are the device uuid. This is important for provisioning
+    newDevice = UnprovisionedDevice(s[2:18:])
     print(s.hex())
     print(Device.uuid)
     print()
