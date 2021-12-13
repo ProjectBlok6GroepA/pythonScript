@@ -12,6 +12,8 @@ class Opcodes:
 
 class Device:
     uuid = None
+    GAT = None
+    provisioned = None
 
 
 def setup_serial_connection():
@@ -54,7 +56,9 @@ def write_serial(value):
 def process_unprov_device():
     time.sleep(1)
     s = ser.read(27)
+    Device.uuid = s[2:18:]  # byte 2 up to 18 are the device uuid. This is important for provisioning
     print(s.hex())
+    print(Device.uuid)
     print()
 
 
